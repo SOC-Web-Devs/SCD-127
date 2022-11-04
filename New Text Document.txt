@@ -1,0 +1,63 @@
+https://www.youtube.com/watch?v=gc7e90MHvl8
+
+Creat Token-----
+
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.7.3/contracts/token/ERC20/ERC20.sol";
+
+contract Ammar_Siddiqui is ERC20 {
+    constructor(uint256 initialSupply) ERC20("Ammar_Siddiqui","ARS") {
+        _mint(msg.sender, initialSupply);
+        }
+}
+
+desimal initialsupply--------
+
+
+10000000 000000000000000000
+
+
+
+
+
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.7.3/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+
+contract AmmarSiddiqui is ERC20 , Ownable{
+
+    IERC20 public stakingToken;
+    IERC20 public rewardsToken;    
+
+    bool status = false;
+
+    mapping(address => uint) public rewards;
+
+    constructor(uint256 initialSupply,address _stakingToken, address _rewardsToken) public ERC20("AmmarSiddiqui","ARS") {
+        
+        stakingToken = ERC20(_stakingToken);
+        rewardsToken = ERC20(_rewardsToken);
+        _mint(msg.sender,initialSupply);
+    
+    }
+
+        function setReward(address account,uint256 amount) public onlyOwner  {
+        rewards[account] = amount;
+    }
+
+    function claimReward(address payable winner, bool status) payable public{
+        require(status,"Sorry you lost");
+        uint256 reward = rewards[msg.sender];
+        rewards[msg.sender] = 40 ether;
+        stakingToken.transferFrom(address(rewardsToken), msg.sender,reward);
+    }
+}
+
+
+
+
+
