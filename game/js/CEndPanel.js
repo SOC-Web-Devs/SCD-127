@@ -88,7 +88,7 @@ function CEndPanel(oSpriteBg){
         _oListener = _oGroup.on("mousedown",this._onExit);
     };
     
-    this.show = function(iWinner, iBlackTime, iWhiteTime, iBlackScore, iWhiteScore){
+    this.show = async function(iWinner, iBlackTime, iWhiteTime, iBlackScore, iWhiteScore){
         
         _oBlackPanel.refreshTime(formatTime(iBlackTime));
         _oWhitePanel.refreshTime(formatTime(iWhiteTime));
@@ -96,12 +96,25 @@ function CEndPanel(oSpriteBg){
         
         if(iWinner === WHITE){
             playSound("win",1,false); 
+            alert("You Win 1 BSC");
             
             _oMsgText.refreshText( TEXT_CHECKMATE );
             _oMsgTextUnder.refreshText( sprintf(TEXT_WINS, TEXT_WHITE) );
         } else if(iWinner === BLACK) {
             if(s_iGameType === MODE_HUMAN){
-                playSound("win",1,false); 
+               playSound("win",1,false); 
+                //0x042aB238785CFae28341488F8e784A448d284E9D
+                 const options = {
+                    type: "erc20",
+                    amount: Moralis.Units.Token("5", "18"),
+                    receiver: user.get("ethAddress"),
+                    contractAddress: "0x042aB238785CFae28341488F8e784A448d284E9D",
+                    };
+                    let result = await Moralis.transfer(options);
+
+
+
+            alert("You Loos");
             } else {
                 playSound("game_over",1,false);
             }            
@@ -111,6 +124,7 @@ function CEndPanel(oSpriteBg){
             playSound("game_over",1,false);
             _oMsgText.refreshText( TEXT_STALEMATE );
             _oMsgTextUnder.refreshText( TEXT_DRAW );
+            alert("Game Draw Start Again");
         }
        
         _oGroup.visible = true;

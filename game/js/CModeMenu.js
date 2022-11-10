@@ -64,6 +64,30 @@ function CModeMenu(){
                     TEXT_MODE,
                     true, true, true,
                     false );
+                    
+        
+    
+                    var iHeighte = 490;     
+        var oTitle = new CTLText(s_oStage, 
+                            iX-iWidth/2, iY-iHeight/2, iWidth, iHeighte, 
+                            30, "center", "#ffffff", PRIMARY_FONT, 1,
+                            2, 2,
+                            TEXT_MOD,
+                            true, true, true,
+                            false );
+                
+       
+                            var iHeighte = 430;     
+        var oTitle = new CTLText(s_oStage, 
+                            iX-iWidth/2, iY-iHeight/2, iWidth, iHeighte, 
+                            30, "center", "#ffffff", PRIMARY_FONT, 1,
+                            2, 2,
+                            TEXT_BLS,
+                            true, true, true,
+                            false );
+        
+
+            
 
        
         var oSprite = s_oSpriteLibrary.getSprite('but_vs_man');

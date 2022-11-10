@@ -14,6 +14,7 @@
 	<meta name="msapplication-tap-highlight" content="no"/>
 
         <!-- <script src="https://unpkg.com/moralis-v1@1.0.3/dist/moralis.js"></script> -->
+
         <script src="https://unpkg.com/moralis-v1@latest/dist/moralis.js"></script>
 
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -64,298 +65,16 @@
             
 
             /* Moralis init code */
-            
+            let contractAddress = "";
             let walletAddress;
-            var ABI = [
-            {
-                "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "initialSupply",
-                    "type": "uint256"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "constructor"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "owner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "value",
-                    "type": "uint256"
-                }
-                ],
-                "name": "Approval",
-                "type": "event"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-                ],
-                "name": "approve",
-                "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "subtractedValue",
-                    "type": "uint256"
-                }
-                ],
-                "name": "decreaseAllowance",
-                "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "addedValue",
-                    "type": "uint256"
-                }
-                ],
-                "name": "increaseAllowance",
-                "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-                ],
-                "name": "transfer",
-                "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "value",
-                    "type": "uint256"
-                }
-                ],
-                "name": "Transfer",
-                "type": "event"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-                ],
-                "name": "transferFrom",
-                "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "owner",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                }
-                ],
-                "name": "allowance",
-                "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "account",
-                    "type": "address"
-                }
-                ],
-                "name": "balanceOf",
-                "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "name": "decimals",
-                "outputs": [
-                {
-                    "internalType": "uint8",
-                    "name": "",
-                    "type": "uint8"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "name": "name",
-                "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "name": "symbol",
-                "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "name": "totalSupply",
-                "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            }
-            ];
-            const serverUrl = "https://gjyexdlwsqwi.usemoralis.com:2053/server";
-            const appId = "zNakMsSAjNQYtzbJnJ9vaKfZRfKtEz2tvjS9FcCZ";
+            const serverUrl = "https://ajoxa6uwwwar.usemoralis.com:2053/server";
+            const appId = "zwQIBFniUzJsSepvQDceXi3XmHrrHzbhYqm7bB8x";
             Moralis.start({ serverUrl, appId });
 
             /* Authentication code */
             
             async function l0gin() {
+            localStorage.clear();
             let user = Moralis.User.current();
             if (!user) {
                 user = await Moralis.authenticate({
@@ -367,10 +86,71 @@
                     const balances = await Moralis.Web3API.account.getNativeBalance();
                     const paramaters = {chain: 'bsc Testnet', address: user.get("ethAddress")};
                     walletAddress = user.get("ethAddress");
-                    const bls = await Moralis.Web3API.account.getNativeBalance(paramaters);
-                    console.log(bls);
+                    var bls = await Moralis.Web3API.account.getNativeBalance(paramaters);
+                    var d = (bls.balance / 1000000000000000000).toFixed(4);
+
+                    console.log(d);
+                    
+
                     start();
+
+                   var addresses =  user.get("ethAddress")
+                
+                console.log(addresses);
+
+                // POST request using fetch()
+
+                      // POST request using fetch()
+                  
+                       const url = 'http://localhost:8081/reg1';
+        
+                        let data = {
+                          address: addresses,
+                        
+                        }
+        
+                        let request = new Request(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                        });
+        
+                        fetch(request)
+                        .then(function() {
+                            // Handle response you get from the API
+                            console.log("data transfer");
+                            //alert("Successfully Register");
+                        });
+                    
+
+
+// get balance on game
+
+                // var sno = 1;
+                    await fetch(`http://localhost:8081/getdata5`)
+                    .then(function(res) {
+                        return res.json();
+                      })
+                 
+                      .then((data) => {
+                        // console.log(data);
+                        //var i = 1;
+                        data.forEach((user) =>  {
+                          if (user) {
+                           var b = `${user.balance}`;
+                           localStorage.setItem("011",b);
+                           console.log(b);
+                          }
+                          else{"no data"}
+                        });
+                      });        
+
+
+    // setbls();
                 })
+
                 .catch(function (error) {
                     console.log(error);
                     alert("Connect Your Wallet");
@@ -386,8 +166,10 @@
 
             // document.getElementById("btn-l0gin").onclick = login;
             // document.getElementById("btn-logout").onclick = logOut;
-             logOut()
+
+             logOut();
              l0gin();
+          
 
             //  if(user == "" || user == null || user == undefined){
             //     alert("connect your wallet again")
@@ -395,6 +177,9 @@
             // }else{
 
             // $(document).ready(async function(){
+
+            
+
                 async function start(){
                 // await Moralis.User.l0gin();
                      var oMain = new CMain({
@@ -418,19 +203,29 @@
                      
                     $(oMain).on("end_session", function(evt) {
                            if(getParamValue('ctl-arcade') === "true"){
-                               parent.__ctlArcadeEndSession();
+                            parent.__ctlArcadeEndSession();
                            }
                            //...ADD YOUR CODE HERE EVENTUALLY
                     });
                     
+
+
+                    // async function transfer(){
+
+                    // }
+
+
+
                     $(oMain).on("save_score", function(evt,iWinner, iBlackTime, iWhiteTime, s_iGameType, iWhiteScore) {
-							// iWinner: 
+							
+                        // iWinner: 
 							// -1 IS DRAW
-							//0 WHITE WINS
-							//1 BLACK WINS
+							// 0 WHITE WINS
+							// 1 BLACK WINS
 							
                             if(getParamValue('ctl-arcade') === "true" && s_iGameType === 1 && iWinner === "white"){
                                parent.__ctlArcadeSaveScore({score:iWhiteScore, szMode: s_iGameType+""});
+                               
                             }
                      });
                      
