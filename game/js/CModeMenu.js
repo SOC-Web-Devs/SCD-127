@@ -64,7 +64,6 @@ function CModeMenu(){
                     TEXT_MODE,
                     true, true, true,
                     false );
-                    
         
     
                     var iHeighte = 490;     
@@ -85,11 +84,8 @@ function CModeMenu(){
                             TEXT_BLS,
                             true, true, true,
                             false );
-        
+                        
 
-            
-
-       
         var oSprite = s_oSpriteLibrary.getSprite('but_vs_man');
         _oButHuman = new CGfxButton(CANVAS_WIDTH/2,800,oSprite,s_oStage);
         _oButHuman.addEventListener(ON_MOUSE_UP, this._onButHumanRelease, this);

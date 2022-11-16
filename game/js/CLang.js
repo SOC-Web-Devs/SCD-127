@@ -1,3 +1,4 @@
+
 var TEXT_PRELOADER_CONTINUE = "START";
 var TEXT_DRAW      = "(draw)";
 var TEXT_WINS      = "(%s wins)";
@@ -8,8 +9,11 @@ var TEXT_ARE_SURE  = "ARE YOU SURE?";
 
 
 var TEXT_MODE      = "CHOOSE GAME MODE";
+
 var TEXT_BLS       = "BALANCE";
 var TEXT_MOD       =  localStorage.getItem("011");
+
+
 var TEXT_BLACK     = "black";
 var TEXT_WHITE     = "white";
 
