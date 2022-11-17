@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jspsych/plugin-canvas-button-response": "^1.1.2",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "e": "^0.2.2",

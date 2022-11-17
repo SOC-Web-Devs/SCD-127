@@ -10,6 +10,10 @@ var TEXT_ARE_SURE  = "ARE YOU SURE?";
 
 var TEXT_MODE      = "CHOOSE GAME MODE";
 
+//var TEXT_BLSS       = "WITHDRAW";
+
+
+
 var TEXT_BLS       = "BALANCE";
 var TEXT_MOD       =  localStorage.getItem("011");
 

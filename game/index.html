@@ -14,7 +14,7 @@
 	<meta name="msapplication-tap-highlight" content="no"/>
 
 
-        <script src="https://unpkg.com/moralis-v1@latest/dist/moralis.js"></script>
+       
 
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/createjs.min.js"></script>
@@ -28,7 +28,7 @@
         <script type="text/javascript" src="js/ctl_utils.js"></script>
         <script type="text/javascript" src="js/sprite_lib.js"></script>
         <script type="text/javascript" src="js/settings.js"></script>
-        <script type="text/javascript" src="js/CLang.js"></script>
+       
         <script type="text/javascript" src="js/CPreloader.js"></script>
         <script type="text/javascript" src="js/CCreditsPanel.js"></script>
         <script type="text/javascript" src="js/CMain.js"></script>
@@ -51,120 +51,29 @@
         <script type="text/javascript" src="js/CPromoPanel.js"></script>
         <script type="text/javascript" src="js/CAI.js"></script>
         <script type="text/javascript" src="js/CMovesControllerFaster.js"></script>
-        
+        <script type="text/javascript" src="js/CLang.js"></script>
         <script type="text/javascript" src="js/CGUIExpandible.js"></script>
         <script type="text/javascript" src="js/CCTLText.js"></script>
         <script type="text/javascript" src="js/sprintf.js"></script>
         
     </head>
-    <body ondragstart="return false;" ondrop="return false;" >
+    <script>
+        function allow(){
+        var allow =localStorage.getItem("010");
+        console.log(allow);
+        if(allow == '' || allow == null || allow == undefined)
+        {
+            console.log('null');
+            window.location.replace("model.html");
+        }
+        }
+        allow();
+    </script>
+    <body onload="start()" ondragstart="return false;" ondrop="return false;" >
 	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
           <script>
 
-            /* Moralis init code */
-            let contractAddress = "";
-            let walletAddress;
-            const serverUrl = "https://gjyexdlwsqwi.usemoralis.com:2053/server";
-            const appId = "zNakMsSAjNQYtzbJnJ9vaKfZRfKtEz2tvjS9FcCZ";
-            Moralis.start({ serverUrl, appId });
-
-            /* Authentication code */
-            
-            logOut();
-            l0gin();
-            
-            async function l0gin() {
-            //localStorage.clear();
-            let user = Moralis.User.current();
-            if (!user) {
-                user = await Moralis.authenticate({
-                signingMessage: "Login to MASTER CHESS",
-                })
-                .then(async function (user) {
-                  //console.log("logged in user:", user);
-                  //console.log(user.get("ethAddress"));
-                    const balances = await Moralis.Web3API.account.getNativeBalance();
-                    const paramaters = {chain: 'bsc Testnet', address: user.get("ethAddress")};
-                    walletAddress = user.get("ethAddress");
-                    var bls = await Moralis.Web3API.account.getNativeBalance(paramaters);
-                    var d = (bls.balance / 1000000000000000000).toFixed(4);
-                    console.log(d);
-                    
-
-
-
-                        async function getbls(add){
-
-                      fetch(`http://localhost:8081/getUser?address=${add}`)
-                      .then(await function (res) {
-                        return res.json();
-                      }) 
-                      .then((data) => {
-                        if (data.length > 0) {
-                        
-                          var b =data[0].balance;
-                          var i = data[0].id;
-                          
-                            localStorage.setItem("012",i);
-                            localStorage.setItem("011",b);
-                            console.log(b);
-                            console.log(i);
-                            start()
-                        } else {
-                          console.log("Now result found");
-                        }
-                      });
-                        }
-                  
-
-                    
-
-                     var addresses = await user.get("ethAddress")
-                     localStorage.setItem("010",addresses);
-
-                     await getbls(addresses);
-                      console.log(addresses);
-                    
-                       const url = 'http://localhost:8081/reg1';
         
-                        let data = {
-                          address: addresses,
-                        
-                        }
-        
-                        let request = new Request(url, {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: new Headers({
-                          'Content-Type': 'application/json'
-                        })
-                        });
-        
-                        fetch(request)
-                        .then(function() {
-                            // Handle response you get from the API
-                            console.log("data transfer");
-                            //alert("Successfully Register");
-                        });
-                    
-                  })
-                  .catch(function (error) {
-                      console.log(error);
-                      alert("Connect Your Wallet");
-                      window.location.reload();
-                  });
-            }
-            }
-
-            async function logOut() {
-            await Moralis.User.logOut();
-            console.log("logged out");
-            }
-
-            // document.getElementById("btn-l0gin").onclick = login;
-            // document.getElementById("btn-logout").onclick = logOut;
-            
-
             async function start(){
                            var oMain = new CMain({
                         
@@ -191,7 +100,8 @@
                            }
                            //...ADD YOUR CODE HERE EVENTUALLY
                           // withdraw();
-                           alert('End Game');
+                           //alert('End Game');
+                           window.location.replace("model.html");
 
                     });
 
@@ -233,44 +143,7 @@
                         sizeHandler(); 
                     }
            };
-        
-
-
-            //   async function withdraw(){
-            //   await Moralis.enableWeb3()
-            //   const readOptions = {
-            //     contractAddress: "0x1F5dB626645eC0fB73D7bdB42222504437bC51A4",
-            //     functionName: "withdraw",
-            //     abi: [ {
-            //       "inputs": [
-            //         {
-            //           "internalType": "uint256",
-            //           "name": "amount",
-            //           "type": "uint256"
-            //         },
-            //         {
-            //           "internalType": "address",
-            //           "name": "useraddress",
-            //           "type": "address"
-            //         }
-            //       ],
-            //       "name": "withdraw",
-            //       "outputs": [],
-            //       "stateMutability": "payable",
-            //       "type": "function"
-            //     }],
-            //       params:{
-            //       amount: 1000000000000001,
-            //       useraddress : localStorage.getItem("010")
-            //       },
-            //     };
-            //     const project = await Moralis.executeFunction(readOptions);
-            //     console.log("total number of projects are ",project.toString());
-            // }
-
-
-
-
+      
 
 
         </script>

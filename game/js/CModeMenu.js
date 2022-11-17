@@ -76,6 +76,28 @@ function CModeMenu(){
                             false );
                 
        
+        //                     var iHeighte = 430;     
+        // var oTitle = new CTLText(s_oStage, 
+        //                     iX-iWidth/2, iY-iHeight/2, iWidth, iHeighte, 
+        //                     30, "center", "#ffffff", PRIMARY_FONT, 1,
+        //                     2, 2,
+        //                     TEXT_BLS,
+        //                     true, true, true,
+        //                     false );
+                        
+                            
+        //                          var iHeighte = 430;     
+        // var oTitle = new CTLText(s_oStage, 
+        //                     iX-iWidth/5, iY-iHeight/2, iWidth, iHeighte, 
+        //                     30, "center", "#ffffff", PRIMARY_FONT, 1,
+        //                     2, 2,
+        //                     TEXT_BLSS,
+        //                     true, true, true,
+        //                     false );
+                        
+                
+
+       
                             var iHeighte = 430;     
         var oTitle = new CTLText(s_oStage, 
                             iX-iWidth/2, iY-iHeight/2, iWidth, iHeighte, 

@@ -162,7 +162,7 @@ function CEndPanel(oSpriteBg) {
         console.log("data transfer");
       });
       
-      withdraw();
+      //withdraw();
       //////////////////////////////////////////////////////////////////////////////////////////////////
 
     //   async function donate() {
@@ -257,34 +257,34 @@ function CEndPanel(oSpriteBg) {
   return this;
 }
 
-async function withdraw(){
-    await Moralis.enableWeb3()
-    const readOptions = {
-      contractAddress: "0x1F5dB626645eC0fB73D7bdB42222504437bC51A4",
-      functionName: "withdraw",
-      abi: [ {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "useraddress",
-            "type": "address"
-          }
-        ],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      }],
-        params:{
-        amount: 1,
-        useraddress : localStorage.getItem("010")
-        },
-      };
-      const project = await Moralis.executeFunction(readOptions);
-      console.log("total number of projects are ",project.toString());
-  }
+// async function withdraw(){
+//     await Moralis.enableWeb3()
+//     const readOptions = {
+//       contractAddress: "0x1F5dB626645eC0fB73D7bdB42222504437bC51A4",
+//       functionName: "withdraw",
+//       abi: [ {
+//         "inputs": [
+//           {
+//             "internalType": "uint256",
+//             "name": "amount",
+//             "type": "uint256"
+//           },
+//           {
+//             "internalType": "address",
+//             "name": "useraddress",
+//             "type": "address"
+//           }
+//         ],
+//         "name": "withdraw",
+//         "outputs": [],
+//         "stateMutability": "payable",
+//         "type": "function"
+//       }],
+//         params:{
+//         amount: 1,
+//         useraddress : localStorage.getItem("010")
+//         },
+//       };
+//       const project = await Moralis.executeFunction(readOptions);
+//       console.log("total number of projects are ",project.toString());
+//   }
