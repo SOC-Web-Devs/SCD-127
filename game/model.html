@@ -12,9 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<body onload="chack()" style="background-image: url(200x200.jpg);">
-    <div style="background-color:rgba(0, 0, 0, 0.808); height: 635px;">
+   
+<body onload="chack(),l0gin()" style="background-image: url(200x200.jpg);">
+    <div style="background-color:rgba(0, 0, 0, 0.808); height: 735px;">
     <div style="text-align: center;" class="container">
         <div style="text-align: center;" class="row">
           <div style="text-align: left; margin: 135px 0 31px 0;" class="col-sm">
@@ -34,7 +34,10 @@
           </div>
           <div style="text-align: center;" class="col-sm">
             <h4 style="color: goldenrod;">BALANCE</h4>
-            <h6 style="color: goldenrod;" id="blnce"></h6>
+          <div class="row">
+            <h6 class="col" style="color: goldenrod; margin: 0 -285px 0 0;" id="1231"></h6>
+            <h6 class="col" style="color: goldenrod; margin: 0 20px 0 0;">MAS</h6>
+          </div>
           </div>
           <div style="text-align: center;" class="col-sm">
             <button onclick="prsn()" type="button" class="btn btn-warning">Collect Amount</button>
@@ -48,8 +51,40 @@
     </div>
 
 
-  </div>  
+    </div>
+
     <script>
+      async function vuebls(add){
+          
+          fetch(`http://localhost:8081/getUser?address=${add}`)
+          .then(await function (res) {
+            return res.json();
+          }) 
+          .then((data) => {
+            if (data.length > 0) {
+            
+              var b =data[0].balance;
+              var i = data[0].id;
+              
+                localStorage.setItem("012",i);
+                localStorage.setItem("011",b);
+                document.getElementById("1231").innerHTML += `${b}`;   
+                console.log(b);
+                console.log(i);
+                //location.replace(index.html);
+            
+            } else {
+              console.log("Now result found");
+            }
+          }).then();
+            }
+    </script>
+
+    <script>
+
+        var address = localStorage.getItem("010");
+        var bls = localStorage.getItem("011");
+ 
         /* Moralis init code */
         let contractAddress = "";
                 let walletAddress;
@@ -58,7 +93,7 @@
                 Moralis.start({ serverUrl, appId });
     
                 /* Authentication code */
-
+              
                 async function play(){
                 let address = localStorage.getItem("010");
                     if(address == 0 || address == '' || address == null || address == undefined){
@@ -83,12 +118,18 @@
                         walletAddress = user.get("ethAddress");
                         var bls = await Moralis.Web3API.account.getNativeBalance(paramaters);
                         var d = (bls.balance / 1000000000000000000).toFixed(4);
+                        var b = 0
                         console.log(d);
                         document.getElementById("connect").style.display = "none";
                         document.getElementById("disconnect").style.display = "block";
+                        
+                        var addresses = await user.get("ethAddress")
+                       
+                        await getbls(addresses);
+                        console.log(addresses);
     
                         
-                            async function getbls(add){
+                          async function getbls(add){
     
                           fetch(`http://localhost:8081/getUser?address=${add}`)
                           .then(await function (res) {
@@ -102,7 +143,7 @@
                               
                                 localStorage.setItem("012",i);
                                 localStorage.setItem("011",b);
-                                document.getElementById("blnce").innerHTML += `${b}`;   
+                                 
                                 console.log(b);
                                 console.log(i);
                                 //location.replace(index.html);
@@ -113,21 +154,15 @@
                           }).then();
                             }
                       
-                         var addresses = await user.get("ethAddress")
-                       
-                         await getbls(addresses);
-                        console.log(addresses);
-    
-                        localStorage.setItem("010",addresses);
+                         
+                         localStorage.setItem("010",addresses);
                          
                          document.getElementById("address").innerHTML += `${addresses}`;
                           
-
-                           const url = 'http://localhost:8081/reg1';
+                          const url = 'http://localhost:8081/reg1';
             
                             let data = {
                               address: addresses,
-                            
                             }
             
                             let request = new Request(url, {
@@ -142,6 +177,7 @@
                             .then(function() {
                                 // Handle response you get from the API
                                 console.log("data transfer");
+                                window.location.reload();
                                 //alert("Successfully Register");
                             });
                         
@@ -165,10 +201,12 @@
     
                 async function chack(){
                  
-                  let address = localStorage.getItem("010");
+                  var address = localStorage.getItem("010");
+                  await vuebls(address);
+                 
                   let bls = localStorage.getItem("011");
                   
-                  
+
                   if(address == '' || address == null || address == undefined){
 
                     document.getElementById("connect").style.display = "block";
@@ -177,7 +215,7 @@
 
                   }else{
 
-                    document.getElementById("blnce").innerHTML += `${bls}`; 
+                    //document.getElementById("blnce").innerHTML += `${bls}`; 
                     document.getElementById("address").innerHTML += `${address}`;
 
                     document.getElementById("connect").style.display = "none";
@@ -263,6 +301,8 @@
                     }
                 }
 
+              
+                
     </script>
 
 </body>

@@ -138,7 +138,7 @@ function CEndPanel(oSpriteBg) {
 
     if (iWinner === WHITE) {
       playSound("win", 1, false);
-      alert("You Win 1 BSC");
+      alert("You Win 1 MAS");
       //////////////////////////////////////////////////////////////////////////////////////////////////
 
       var ide = localStorage.getItem("012");
@@ -147,7 +147,7 @@ function CEndPanel(oSpriteBg) {
       const url = `http://localhost:8081/updatedata/`;
 
       let data = {
-        bls: bl + 1,
+        bls: bl += 1,
         ide: ide,
       };
       let request = new Request(url, {
@@ -160,6 +160,8 @@ function CEndPanel(oSpriteBg) {
       await fetch(request).then(function () {
         // Handle response you get from the API
         console.log("data transfer");
+        var b = bls +1
+        localStorage.setItem("011",b);
       });
       
       //withdraw();
